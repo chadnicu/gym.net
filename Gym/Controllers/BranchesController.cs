@@ -34,7 +34,7 @@ namespace Gym.Controllers
             }
 
             var branch = await _context.Branches
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.BranchId == id);
             if (branch == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,City,Address,Founded")] Branch branch)
+        public async Task<IActionResult> Create([Bind("BranchId,City,Address,Founded")] Branch branch)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,City,Address,Founded")] Branch branch)
+        public async Task<IActionResult> Edit(int id, [Bind("BranchId,City,Address,Founded")] Branch branch)
         {
-            if (id != branch.Id)
+            if (id != branch.BranchId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Gym.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BranchExists(branch.Id))
+                    if (!BranchExists(branch.BranchId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace Gym.Controllers
             }
 
             var branch = await _context.Branches
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.BranchId == id);
             if (branch == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace Gym.Controllers
 
         private bool BranchExists(int id)
         {
-            return _context.Branches.Any(e => e.Id == id);
+            return _context.Branches.Any(e => e.BranchId == id);
         }
     }
 }

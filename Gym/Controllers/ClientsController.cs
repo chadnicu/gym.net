@@ -34,7 +34,7 @@ namespace Gym.Controllers
             }
 
             var client = await _context.Clients
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email,BirthDate")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientId,FirstName,LastName,Email,BirthDate")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Email,BirthDate")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ClientId,FirstName,LastName,Email,BirthDate")] Client client)
         {
-            if (id != client.Id)
+            if (id != client.ClientId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace Gym.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.Id))
+                    if (!ClientExists(client.ClientId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace Gym.Controllers
             }
 
             var client = await _context.Clients
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace Gym.Controllers
 
         private bool ClientExists(int id)
         {
-            return _context.Clients.Any(e => e.Id == id);
+            return _context.Clients.Any(e => e.ClientId == id);
         }
     }
 }

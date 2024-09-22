@@ -22,7 +22,8 @@ namespace Gym.Controllers
         // GET: Subscriptions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Subscriptions.ToListAsync());
+            var gymContext = _context.Subscriptions.Include(s => s.Branch).Include(s => s.Client);
+            return View(await gymContext.ToListAsync());
         }
 
         // GET: Subscriptions/Details/5
@@ -34,7 +35,9 @@ namespace Gym.Controllers
             }
 
             var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Branch)
+                .Include(s => s.Client)
+                .FirstOrDefaultAsync(m => m.SubscriptionId == id);
             if (subscription == null)
             {
                 return NotFound();
@@ -46,6 +49,8 @@ namespace Gym.Controllers
         // GET: Subscriptions/Create
         public IActionResult Create()
         {
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address");
+            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "Email");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Started,Expires")] Subscription subscription)
+        public async Task<IActionResult> Create([Bind("SubscriptionId,Started,Expires,ClientId,BranchId")] Subscription subscription)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace Gym.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", subscription.BranchId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "Email", subscription.ClientId);
             return View(subscription);
         }
 
@@ -78,6 +85,8 @@ namespace Gym.Controllers
             {
                 return NotFound();
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", subscription.BranchId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "Email", subscription.ClientId);
             return View(subscription);
         }
 
@@ -86,9 +95,9 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Started,Expires")] Subscription subscription)
+        public async Task<IActionResult> Edit(int id, [Bind("SubscriptionId,Started,Expires,ClientId,BranchId")] Subscription subscription)
         {
-            if (id != subscription.Id)
+            if (id != subscription.SubscriptionId)
             {
                 return NotFound();
             }
@@ -102,7 +111,7 @@ namespace Gym.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SubscriptionExists(subscription.Id))
+                    if (!SubscriptionExists(subscription.SubscriptionId))
                     {
                         return NotFound();
                     }
@@ -113,6 +122,8 @@ namespace Gym.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", subscription.BranchId);
+            ViewData["ClientId"] = new SelectList(_context.Clients, "ClientId", "Email", subscription.ClientId);
             return View(subscription);
         }
 
@@ -125,7 +136,9 @@ namespace Gym.Controllers
             }
 
             var subscription = await _context.Subscriptions
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(s => s.Branch)
+                .Include(s => s.Client)
+                .FirstOrDefaultAsync(m => m.SubscriptionId == id);
             if (subscription == null)
             {
                 return NotFound();
@@ -151,7 +164,7 @@ namespace Gym.Controllers
 
         private bool SubscriptionExists(int id)
         {
-            return _context.Subscriptions.Any(e => e.Id == id);
+            return _context.Subscriptions.Any(e => e.SubscriptionId == id);
         }
     }
 }

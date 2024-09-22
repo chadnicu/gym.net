@@ -1,5 +1,4 @@
-﻿using NuGet.Packaging.Signing;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Gym.Models
@@ -7,8 +6,7 @@ namespace Gym.Models
     public class Subscription
     {
         [Key]
-        [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public int SubscriptionId { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -19,7 +17,12 @@ namespace Gym.Models
         [DataType(DataType.Date)]
         [DisplayName("Data expirării")]
         public DateTime Expires { get; set; }
-        //public ICollection<Client> Clients { get; set; }
-        //public ICollection<Branch> Branches { get; set; }
+
+        public int ClientId { get; set; }
+        public Client? Client { get; set; }
+
+        public int BranchId { get; set; }
+        public Branch? Branch { get; set; }
+
     }
 }

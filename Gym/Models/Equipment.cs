@@ -6,10 +6,9 @@ namespace Gym.Models
     public class Equipment
     {
         [Key]
-        [ScaffoldColumn(false)]
-        public int Id { get; set; }
+        public int EquipmentId { get; set; }
 
-        [Required]  
+        [Required]
         [StringLength(100, MinimumLength = 2)]
         [DisplayName("Denumire")]
         public string Name { get; set; }
@@ -34,6 +33,7 @@ namespace Gym.Models
         [DisplayName("Data procurării")]
         public DateTime PurchasedAt { get; set; }
 
-        // public ICollection<Branch> Branches { get; set; }
+        public int BranchId { get; set; }
+        public Branch? Branch { get; set; }
     }
 }

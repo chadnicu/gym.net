@@ -22,7 +22,8 @@ namespace Gym.Controllers
         // GET: Equipments
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Equipments.ToListAsync());
+            var gymContext = _context.Equipments.Include(e => e.Branch);
+            return View(await gymContext.ToListAsync());
         }
 
         // GET: Equipments/Details/5
@@ -34,7 +35,8 @@ namespace Gym.Controllers
             }
 
             var equipment = await _context.Equipments
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(e => e.Branch)
+                .FirstOrDefaultAsync(m => m.EquipmentId == id);
             if (equipment == null)
             {
                 return NotFound();
@@ -46,6 +48,7 @@ namespace Gym.Controllers
         // GET: Equipments/Create
         public IActionResult Create()
         {
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Brand,MuscleGroup,Price,PurchasedAt")] Equipment equipment)
+        public async Task<IActionResult> Create([Bind("EquipmentId,Name,Brand,MuscleGroup,Price,PurchasedAt,BranchId")] Equipment equipment)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace Gym.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", equipment.BranchId);
             return View(equipment);
         }
 
@@ -78,6 +82,7 @@ namespace Gym.Controllers
             {
                 return NotFound();
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", equipment.BranchId);
             return View(equipment);
         }
 
@@ -86,9 +91,9 @@ namespace Gym.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Brand,MuscleGroup,Price,PurchasedAt")] Equipment equipment)
+        public async Task<IActionResult> Edit(int id, [Bind("EquipmentId,Name,Brand,MuscleGroup,Price,PurchasedAt,BranchId")] Equipment equipment)
         {
-            if (id != equipment.Id)
+            if (id != equipment.EquipmentId)
             {
                 return NotFound();
             }
@@ -102,7 +107,7 @@ namespace Gym.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EquipmentExists(equipment.Id))
+                    if (!EquipmentExists(equipment.EquipmentId))
                     {
                         return NotFound();
                     }
@@ -113,6 +118,7 @@ namespace Gym.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BranchId"] = new SelectList(_context.Branches, "BranchId", "Address", equipment.BranchId);
             return View(equipment);
         }
 
@@ -125,7 +131,8 @@ namespace Gym.Controllers
             }
 
             var equipment = await _context.Equipments
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(e => e.Branch)
+                .FirstOrDefaultAsync(m => m.EquipmentId == id);
             if (equipment == null)
             {
                 return NotFound();
@@ -151,7 +158,7 @@ namespace Gym.Controllers
 
         private bool EquipmentExists(int id)
         {
-            return _context.Equipments.Any(e => e.Id == id);
+            return _context.Equipments.Any(e => e.EquipmentId == id);
         }
     }
 }
