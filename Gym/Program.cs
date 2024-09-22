@@ -1,5 +1,6 @@
 using Gym.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,6 @@ builder.Services.AddDbContext<GymContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddControllersWithViews();
-
 var app = builder.Build();
 
 // Create a scope for the database initialization
@@ -26,7 +26,7 @@ using (var scope = app.Services.CreateScope())
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while seeding the database.");
-    }
+    }   
 }
 
 // Configure the HTTP request pipeline.

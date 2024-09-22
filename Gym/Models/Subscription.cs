@@ -18,10 +18,16 @@ namespace Gym.Models
         [DisplayName("Data expirării")]
         public DateTime Expires { get; set; }
 
+        [Required]
+        [DisplayName("Client (email)")]
         public int ClientId { get; set; }
         public Client? Client { get; set; }
 
+        [Required]
+        [DisplayName("Filiala (adresa)")]
         public int BranchId { get; set; }
+
+        [DisplayName("Filiala (adresa)")]
         public Branch? Branch { get; set; }
 
     }

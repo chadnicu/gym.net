@@ -33,7 +33,11 @@ namespace Gym.Models
         [DisplayName("Data procurării")]
         public DateTime PurchasedAt { get; set; }
 
+        [Required]
+        [DisplayName("Filiala (adresa)")]
         public int BranchId { get; set; }
+
+        [DisplayName("Filiala (adresa)")]
         public Branch? Branch { get; set; }
     }
 }

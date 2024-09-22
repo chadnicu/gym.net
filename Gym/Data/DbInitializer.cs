@@ -6,8 +6,7 @@ namespace Gym.Data
     {
         public static void Initialize(GymContext context)
         {
-            context.Database.EnsureCreated();
-
+            Console.WriteLine("Seeding started...");
             // Look for any Branches.
             if (context.Branches.Any())
             {

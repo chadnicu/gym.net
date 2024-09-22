@@ -17,8 +17,8 @@ namespace Gym.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Equipment>().ToTable("Equipment");
-            modelBuilder.Entity<Branch>().ToTable("Branch");
-            modelBuilder.Entity<Client>().ToTable("Client");
+            modelBuilder.Entity<Branch>().ToTable("Branch").HasIndex(b=>b.Address).IsUnique();
+            modelBuilder.Entity<Client>().ToTable("Client").HasIndex(c=>c.Email).IsUnique();
             modelBuilder.Entity<Subscription>().ToTable("Subscription");
         }
 

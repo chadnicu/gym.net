@@ -32,7 +32,7 @@ namespace Gym.Migrations
                     ClientId = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -91,6 +91,18 @@ namespace Gym.Migrations
                         principalColumn: "ClientId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Branch_Address",
+                table: "Branch",
+                column: "Address",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Client_Email",
+                table: "Client",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Equipment_BranchId",
