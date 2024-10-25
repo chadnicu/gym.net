@@ -1,5 +1,7 @@
 using Gym.Models;
+using Gym.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Gym.Controllers

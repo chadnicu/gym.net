@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gym.Data;
 using Gym.Models;
+using Gym.Models.ViewModels;
 
 namespace Gym.Controllers
 {
@@ -17,6 +18,55 @@ namespace Gym.Controllers
         public EquipmentsController(GymContext context)
         {
             _context = context;
+        }
+
+        // pagina cu paginari, sorting, filtering
+        public async Task<IActionResult> Paginated(int? branch, string name, int page = 1,
+            SortOption sortOrder = SortOption.NameAsc)
+        {
+            int pageSize = 10;
+
+            // Filtering
+            IQueryable<Equipment> equipments = _context.Equipments.Include(x => x.Branch);
+
+            if (branch != null && branch != 0)
+            {
+                equipments = equipments.Where(p => p.BranchId == branch);
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                equipments = equipments.Where(p => p.Name.Contains(name));
+            }
+
+            // Sorting
+            equipments = sortOrder switch
+            {
+                SortOption.NameDesc => equipments.OrderByDescending(s => s.Name),
+                SortOption.BrandAsc => equipments.OrderBy(s => s.Brand),
+                SortOption.BrandDesc => equipments.OrderByDescending(s => s.Brand),
+                SortOption.PriceAsc => equipments.OrderBy(s => s.Price),
+                SortOption.PriceDesc => equipments.OrderByDescending(s => s.Price),
+                SortOption.PurchasedAtAsc => equipments.OrderBy(s => s.PurchasedAt),
+                SortOption.PurchasedAtDesc => equipments.OrderByDescending(s => s.PurchasedAt),
+                SortOption.BranchAsc => equipments.OrderBy(s => s.Branch.City),
+                SortOption.BranchDesc => equipments.OrderByDescending(s => s.Branch.City),
+                _ => equipments.OrderBy(s => s.Name),
+            };
+
+            // Pagination
+            var count = await equipments.CountAsync();
+            var items = await equipments.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // Create view model
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                Equipment = items,
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(await _context.Branches.ToListAsync(), branch, name)
+            };
+
+            return View(viewModel);
         }
 
         // GET: Equipments

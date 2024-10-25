@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Gym.Validations;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,6 +29,7 @@ namespace Gym.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Data nașterii")]
+        [MinAge(16, ErrorMessage = "Trebuie să ai cel puțin 16 ani.")]
         public DateTime BirthDate { get; set; }
 
         public ICollection<Subscription>? Subscriptions { get; set; }

@@ -1,12 +1,11 @@
 ﻿@model Gym.Models.Client
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Client";
 }
 
-<h1>Create</h1>
+<h1>Create Client</h1>
 
-<h4>Client</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -32,7 +31,7 @@
                 <input asp-for="BirthDate" class="form-control" />
                 <span asp-validation-for="BirthDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group my-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

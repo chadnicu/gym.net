@@ -1,0 +1,151 @@
+﻿@using Gym.Models.ViewModels
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    @@font-face {
+        font-family: 'FontAwesome';
+        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'),
+        url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'),
+        url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal
+    }
+    .glyphicon {
+        display: inline-block;
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale
+    }
+    .glyphicon-chevron-right:before {
+        content: "\f054";
+    }
+    .glyphicon-chevron-left:before {
+        content: "\f053";
+    }
+</style>
+
+<h1 class="mb-4 mt-4">Equipments But Paginated</h1>
+
+<form method="get" class="mb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <label asp-for="FilterViewModel.SelectedBranch" class="control-label">Branch:</label>
+            <select name="branch" asp-for="FilterViewModel.SelectedBranch" asp-items="Model.FilterViewModel.Branches" class="form-control">
+                <option value="">All Branches</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="FilterViewModel.SelectedName" class="control-label">Name:</label>
+            <input name="name" asp-for="FilterViewModel.SelectedName" class="form-control" />
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Paginated"
+                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
+                    Name
+                </a>
+            </th>
+            <th>
+                <a asp-action="Paginated"
+                   asp-route-sortOrder="@(Model.SortViewModel.BrandSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
+                    Brand
+                </a>
+            </th>
+            <th>Muscle Group</th>
+            <th>
+                <a asp-action="Paginated"
+                   asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
+                    Price
+                </a>
+            </th>
+            <th>
+                <a asp-action="Paginated"
+                   asp-route-sortOrder="@(Model.SortViewModel.PurchasedAtSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
+                    Purchased At
+                </a>
+            </th>
+            <th>
+                <a asp-action="Paginated"
+                   asp-route-sortOrder="@(Model.SortViewModel.BranchSort)"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
+                    Branch
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Equipment)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Brand</td>
+                <td>@item.MuscleGroup</td>
+                <td>@item.Price</td>
+                <td>@item.PurchasedAt</td>
+                <td>@item.Branch.Address</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.PageViewModel.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PageViewModel.HasNextPage ? "disabled" : "";
+}
+
+<nav aria-label="Page navigation">
+    <ul class="pagination mt-4">
+        <li class="page-item @prevDisabled">
+            <a class="page-link" asp-action="Paginated"
+               asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-branch="@(Model.FilterViewModel.SelectedBranch)"
+               asp-route-sortOrder="@(Model.SortViewModel.Current)">
+                Previous
+            </a>
+        </li>
+        @for (int i = 1; i <= Model.PageViewModel.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.PageViewModel.PageNumber ? "active" : "")">
+                <a class="page-link" asp-action="Paginated"
+                   asp-route-page="@i"
+                   asp-route-name="@(Model.FilterViewModel.SelectedName)"
+                   asp-route-branch="@(Model.FilterViewModel.SelectedBranch)"
+                   asp-route-sortOrder="@(Model.SortViewModel.Current)">
+                    @i
+                </a>
+            </li>
+        }
+        <li class="page-item @nextDisabled">
+            <a class="page-link" asp-action="Paginated"
+               asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-branch="@(Model.FilterViewModel.SelectedBranch)"
+               asp-route-sortOrder="@(Model.SortViewModel.Current)">
+                Next
+            </a>
+        </li>
+    </ul>
+</nav>
