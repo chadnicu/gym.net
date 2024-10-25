@@ -1,2 +1,2 @@
 # Entity Framework Core with ASP.NET Core MVC
-Mocked a sort of gym administration software
+College project for a "Gym administration software".
