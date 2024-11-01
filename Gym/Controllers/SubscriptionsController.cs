@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gym.Data;
 using Gym.Models;
+using Gym.Models.ViewModels;
 
 namespace Gym.Controllers
 {
@@ -17,6 +18,88 @@ namespace Gym.Controllers
         public SubscriptionsController(GymContext context)
         {
             _context = context;
+        }
+
+        public async Task<IActionResult> Purchase()
+        {
+            var branches = await _context.Branches.ToListAsync();
+            var viewModel = new PurchaseSubscriptionViewModel
+            {
+                Branches = branches,
+                AvailableDurations = new List<int> { 1, 3, 6, 12 },
+                // BirthDate = DateTime.Today.AddYears(-18)
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Purchase(PurchaseSubscriptionViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                await PopulateViewModel(model);
+                return View(model);
+            }
+
+            try
+            {
+                var client = await GetOrCreateClient(model);
+                await CreateSubscription(model, client);
+                TempData["SuccessMessage"] = "Subscription purchased successfully!";
+                return RedirectToAction(nameof(Purchase));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", $"Error details: {ex.Message}");
+                await PopulateViewModel(model);
+                return View(model);
+            }
+        }
+
+        private async Task<Client> GetOrCreateClient(PurchaseSubscriptionViewModel model)
+        {
+            var client = await _context.Clients
+                .FirstOrDefaultAsync(c => c.Email == model.Email);
+
+            if (client != null) return client;
+
+            int nextClientId = await _context.Clients.AnyAsync()
+                ? await _context.Clients.MaxAsync(c => c.ClientId) + 1
+                : 1;
+
+            client = new Client
+            {
+                ClientId = nextClientId,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                BirthDate = model.BirthDate
+            };
+
+            _context.Clients.Add(client);
+            await _context.SaveChangesAsync();
+            return client;
+        }
+
+        private async Task CreateSubscription(PurchaseSubscriptionViewModel model, Client client)
+        {
+            var subscription = new Subscription
+            {
+                Started = DateTime.Now,
+                Expires = DateTime.Now.AddMonths(model.Duration),
+                ClientId = client.ClientId,
+                BranchId = model.BranchId
+            };
+
+            _context.Subscriptions.Add(subscription);
+            await _context.SaveChangesAsync();
+        }
+
+        private async Task PopulateViewModel(PurchaseSubscriptionViewModel model)
+        {
+            model.Branches = await _context.Branches.ToListAsync();
+            model.AvailableDurations = new List<int> { 1, 3, 6, 12 };
         }
 
         // GET: Subscriptions

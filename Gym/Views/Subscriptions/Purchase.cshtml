@@ -1,0 +1,99 @@
+@model Gym.Models.ViewModels.PurchaseSubscriptionViewModel
+@{
+    ViewData["Title"] = "Purchase Subscription";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Purchase Subscription</h2>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+
+                    <form asp-action="Purchase" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FirstName" class="form-label"></label>
+                                    <input asp-for="FirstName" class="form-control" />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="LastName" class="form-label"></label>
+                                    <input asp-for="LastName" class="form-control" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Email" class="form-label"></label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BirthDate" class="form-label"></label>
+                                    <input asp-for="BirthDate" class="form-control" />
+                                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="BranchId" class="form-label"></label>
+                                    <select asp-for="BranchId" class="form-select">
+                                        <option value="">Select a branch</option>
+                                        @foreach (var branch in Model.Branches)
+                                        {
+                                            <option value="@branch.BranchId">@branch.City - @branch.Address</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="BranchId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Duration" class="form-label"></label>
+                                    <select asp-for="Duration" class="form-select">
+                                        <option value="">Select duration</option>
+                                        @foreach (var duration in Model.AvailableDurations)
+                                        {
+                                            <option value="@duration">@duration month@(duration > 1 ? "s" : "")</option>
+                                        }
+                                    </select>
+                                    <span asp-validation-for="Duration" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Purchase Subscription</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

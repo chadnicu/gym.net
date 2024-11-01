@@ -47,7 +47,7 @@ namespace Gym.Data
             // equipments
             var equipments = new Equipment[]
             {
-     new Equipment{Name="Leg Extension",Brand="Nautilus",MuscleGroup="Quadriceps",Price=5000,PurchasedAt=DateTime.Parse("2024-09-11"),BranchId=1},
+    new Equipment{Name="Leg Extension",Brand="Nautilus",MuscleGroup="Quadriceps",Price=5000,PurchasedAt=DateTime.Parse("2024-09-11"),BranchId=1},
     new Equipment{Name="Chest Press",Brand="Hammer Strength",MuscleGroup="Chest",Price=7000,PurchasedAt=DateTime.Parse("2024-08-15"),BranchId=2},
     new Equipment{Name="Treadmill",Brand="NordicTrack",MuscleGroup="Cardio",Price=4500,PurchasedAt=DateTime.Parse("2024-07-20"),BranchId=3},
     new Equipment{Name="Squat Rack",Brand="Rogue",MuscleGroup="Legs",Price=8000,PurchasedAt=DateTime.Parse("2024-06-11"),BranchId=4},
@@ -66,8 +66,49 @@ namespace Gym.Data
     new Equipment{Name="Spin Bike",Brand="Peloton",MuscleGroup="Cardio",Price=4000,PurchasedAt=DateTime.Parse("2023-05-12"),BranchId=17},
     new Equipment{Name="Glute Machine",Brand="Nautilus",MuscleGroup="Glutes",Price=5000,PurchasedAt=DateTime.Parse("2023-04-10"),BranchId=18},
     new Equipment{Name="Pull-up Bar",Brand="Iron Gym",MuscleGroup="Back",Price=1500,PurchasedAt=DateTime.Parse("2023-03-22"),BranchId=19},
-    new Equipment{Name="Abdominal Crunch Machine",Brand="Precor",MuscleGroup="Abs",Price=3000,PurchasedAt=DateTime.Parse("2023-02-15"),BranchId=20}
+    new Equipment{Name="Abdominal Crunch Machine",Brand="Precor",MuscleGroup="Abs",Price=3000,PurchasedAt=DateTime.Parse("2023-02-15"),BranchId=20},
 
+    new Equipment{Name="Stepper", Brand="StairMaster", MuscleGroup="Cardio", Price=4500, PurchasedAt=DateTime.Parse("2024-08-01"), BranchId=1},
+    new Equipment{Name="Incline Bench", Brand="Rogue", MuscleGroup="Chest", Price=2000, PurchasedAt=DateTime.Parse("2024-07-25"), BranchId=2},
+    new Equipment{Name="Rowing Machine", Brand="WaterRower", MuscleGroup="Cardio", Price=4200, PurchasedAt=DateTime.Parse("2024-06-10"), BranchId=3},
+    new Equipment{Name="Leg Curl", Brand="Body-Solid", MuscleGroup="Hamstrings", Price=5000, PurchasedAt=DateTime.Parse("2024-05-14"), BranchId=4},
+    new Equipment{Name="Pull-Down Bar", Brand="Bodycraft", MuscleGroup="Back", Price=2500, PurchasedAt=DateTime.Parse("2024-04-21"), BranchId=5},
+    new Equipment{Name="Adjustable Dumbbells", Brand="PowerBlock", MuscleGroup="Full Body", Price=3500, PurchasedAt=DateTime.Parse("2024-03-20"), BranchId=6},
+    new Equipment{Name="Calf Raise Machine", Brand="Hammer Strength", MuscleGroup="Legs", Price=4000, PurchasedAt=DateTime.Parse("2024-02-18"), BranchId=7},
+    new Equipment{Name="Preacher Curl", Brand="Body-Solid", MuscleGroup="Arms", Price=1800, PurchasedAt=DateTime.Parse("2024-01-25"), BranchId=8},
+    new Equipment{Name="Upright Bike", Brand="NordicTrack", MuscleGroup="Cardio", Price=3200, PurchasedAt=DateTime.Parse("2023-12-05"), BranchId=9},
+    new Equipment{Name="Dual Adjustable Pulley", Brand="Life Fitness", MuscleGroup="Full Body", Price=9000, PurchasedAt=DateTime.Parse("2023-11-14"), BranchId=10},
+    new Equipment{Name="Hyperextension Bench", Brand="Rogue", MuscleGroup="Back", Price=1500, PurchasedAt=DateTime.Parse("2023-10-22"), BranchId=11},
+    new Equipment{Name="Glute-Ham Developer", Brand="Body-Solid", MuscleGroup="Glutes", Price=3000, PurchasedAt=DateTime.Parse("2023-09-09"), BranchId=12},
+    new Equipment{Name="Smith Cage", Brand="Force USA", MuscleGroup="Full Body", Price=8000, PurchasedAt=DateTime.Parse("2023-08-01"), BranchId=13},
+    new Equipment{Name="Reverse Hyper", Brand="Rogue", MuscleGroup="Lower Back", Price=2500, PurchasedAt=DateTime.Parse("2023-07-15"), BranchId=14},
+    new Equipment{Name="Leg Raise Machine", Brand="Body-Solid", MuscleGroup="Abs", Price=2700, PurchasedAt=DateTime.Parse("2023-06-12"), BranchId=15},
+    new Equipment{Name="Seated Leg Press", Brand="Nautilus", MuscleGroup="Legs", Price=6700, PurchasedAt=DateTime.Parse("2023-05-20"), BranchId=16},
+    new Equipment{Name="Power Rack", Brand="Titan Fitness", MuscleGroup="Full Body", Price=5000, PurchasedAt=DateTime.Parse("2023-04-05"), BranchId=17},
+    new Equipment{Name="Vertical Climber", Brand="VersaClimber", MuscleGroup="Cardio", Price=4800, PurchasedAt=DateTime.Parse("2023-03-18"), BranchId=18},
+    new Equipment{Name="Multi-Grip Pull-Up Bar", Brand="Titan Fitness", MuscleGroup="Back", Price=1300, PurchasedAt=DateTime.Parse("2023-02-28"), BranchId=19},
+    new Equipment{Name="Sit-Up Bench", Brand="Marcy", MuscleGroup="Abs", Price=800, PurchasedAt=DateTime.Parse("2023-01-19"), BranchId=20},
+
+    new Equipment{Name="Dip Station", Brand="Body-Solid", MuscleGroup="Arms", Price=1200, PurchasedAt=DateTime.Parse("2024-07-08"), BranchId=1},
+    new Equipment{Name="Pec Fly Machine", Brand="Cybex", MuscleGroup="Chest", Price=5300, PurchasedAt=DateTime.Parse("2024-06-20"), BranchId=2},
+    new Equipment{Name="Ab Bench", Brand="Precor", MuscleGroup="Abs", Price=1800, PurchasedAt=DateTime.Parse("2024-05-29"), BranchId=3},
+    new Equipment{Name="Kettlebell Set", Brand="Bowflex", MuscleGroup="Full Body", Price=1600, PurchasedAt=DateTime.Parse("2024-04-11"), BranchId=4},
+    new Equipment{Name="Sled Machine", Brand="Rogue", MuscleGroup="Legs", Price=3200, PurchasedAt=DateTime.Parse("2024-03-22"), BranchId=5},
+    new Equipment{Name="Arm Curl Machine", Brand="Technogym", MuscleGroup="Arms", Price=2300, PurchasedAt=DateTime.Parse("2024-02-03"), BranchId=6},
+    new Equipment{Name="Elliptical Trainer", Brand="NordicTrack", MuscleGroup="Cardio", Price=4500, PurchasedAt=DateTime.Parse("2024-01-15"), BranchId=7},
+    new Equipment{Name="Power Tower", Brand="Weider", MuscleGroup="Full Body", Price=2100, PurchasedAt=DateTime.Parse("2023-12-30"), BranchId=8},
+    new Equipment{Name="Lat Pulldown Machine", Brand="Body-Solid", MuscleGroup="Back", Price=3000, PurchasedAt=DateTime.Parse("2023-11-16"), BranchId=9},
+    new Equipment{Name="Adjustable Bench", Brand="Life Fitness", MuscleGroup="Full Body", Price=2000, PurchasedAt=DateTime.Parse("2023-10-04"), BranchId=10},
+    new Equipment{Name="Hack Squat Machine", Brand="Hammer Strength", MuscleGroup="Legs", Price=5500, PurchasedAt=DateTime.Parse("2023-09-12"), BranchId=11},
+    new Equipment{Name="Vertical Leg Press", Brand="Bodycraft", MuscleGroup="Legs", Price=6000, PurchasedAt=DateTime.Parse("2023-08-21"), BranchId=12},
+    new Equipment{Name="Rowing Machine", Brand="Concept2", MuscleGroup="Cardio", Price=4200, PurchasedAt=DateTime.Parse("2023-07-15"), BranchId=13},
+    new Equipment{Name="Incline Chest Press", Brand="Nautilus", MuscleGroup="Chest", Price=5500, PurchasedAt=DateTime.Parse("2023-06-25"), BranchId=14},
+    new Equipment{Name="Triceps Press", Brand="Technogym", MuscleGroup="Arms", Price=2600, PurchasedAt=DateTime.Parse("2023-05-09"), BranchId=15},
+    new Equipment{Name="Multi-Gym Station", Brand="Precor", MuscleGroup="Full Body", Price=9500, PurchasedAt=DateTime.Parse("2023-04-01"), BranchId=16},
+    new Equipment{Name="Air Bike", Brand="Assault Fitness", MuscleGroup="Cardio", Price=3700, PurchasedAt=DateTime.Parse("2023-03-10"), BranchId=17},
+    new Equipment{Name="Seated Calf Raise", Brand="Body-Solid", MuscleGroup="Legs", Price=2400, PurchasedAt=DateTime.Parse("2023-02-22"), BranchId=18},
+    new Equipment{Name="Flat Bench", Brand="Rogue", MuscleGroup="Chest", Price=1500, PurchasedAt=DateTime.Parse("2023-01-12"), BranchId=19},
+    new Equipment{Name="Shoulder Press Machine", Brand="Hammer Strength", MuscleGroup="Shoulders", Price=5000, PurchasedAt=DateTime.Parse("2022-12-31"), BranchId=20}
             };
 
 
