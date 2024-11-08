@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Gym.Models.Equipment>
+﻿@model IEnumerable<Gym.Models.ViewModels.EquipmentViewModel>
 
 @{
     ViewData["Title"] = "Equipments";
@@ -28,7 +28,7 @@
                 @Html.DisplayNameFor(model => model.PurchasedAt)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Branch)
+                @Html.DisplayNameFor(model => model.Address)
             </th>
             <th></th>
         </tr>
@@ -36,13 +36,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td class="text-capitalize">
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
+            <td class="text-capitalize">
                 @Html.DisplayFor(modelItem => item.Brand)
             </td>
-            <td>
+            <td class="text-capitalize">
                 @Html.DisplayFor(modelItem => item.MuscleGroup)
             </td>
             <td>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.PurchasedAt)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Branch.Address)
+                @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.EquipmentId">Edit</a> |

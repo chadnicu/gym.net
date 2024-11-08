@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Gym.Data;
 using Gym.Models;
+using Gym.Models.ViewModels;
 
 namespace Gym.Controllers
 {
@@ -22,7 +23,7 @@ namespace Gym.Controllers
         // GET: Branches
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Branches.ToListAsync());
+            return View(await _context.Branches.Select(b=> new BranchViewModel(b)).ToListAsync());
         }
 
         // GET: Branches/Details/5
@@ -40,7 +41,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(branch);
+            return View(new BranchViewModel(branch));
         }
 
         // GET: Branches/Create
@@ -131,7 +132,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(branch);
+            return View(new BranchViewModel(branch));
         }
 
         // POST: Branches/Delete/5

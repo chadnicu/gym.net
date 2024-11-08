@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Gym.Models.Subscription>
+﻿@model IEnumerable<Gym.Models.ViewModels.SubscriptionViewModel>
 
 @{
     ViewData["Title"] = "Subscriptions";
@@ -19,10 +19,10 @@
                 @Html.DisplayNameFor(model => model.Expires)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Client)
+                @Html.DisplayNameFor(model => model.ClientEmail)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Branch)
+                @Html.DisplayNameFor(model => model.BranchAddress)
             </th>
             <th></th>
         </tr>
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Expires)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Client.Email)
+                @Html.DisplayFor(modelItem => item.ClientEmail)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Branch.Address)
+                @Html.DisplayFor(modelItem => item.BranchAddress)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SubscriptionId">Edit</a> |

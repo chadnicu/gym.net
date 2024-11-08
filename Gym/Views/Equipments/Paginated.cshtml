@@ -1,5 +1,5 @@
 ﻿@using Gym.Models.ViewModels
-@model IndexViewModel
+@model PaginationViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -90,13 +90,13 @@
                    asp-route-sortOrder="@(Model.SortViewModel.BranchSort)"
                    asp-route-name="@(Model.FilterViewModel.SelectedName)"
                    asp-route-branch="@(Model.FilterViewModel.SelectedBranch)">
-                    Branch
+                    Branch's Address
                 </a>
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Equipment)
+        @foreach (var item in Model.EquipmentViewModel)
         {
             <tr>
                 <td>@item.Name</td>
@@ -104,7 +104,7 @@
                 <td>@item.MuscleGroup</td>
                 <td>@item.Price</td>
                 <td>@item.PurchasedAt</td>
-                <td>@item.Branch.Address</td>
+                <td>@item.Address</td>
             </tr>
         }
     </tbody>

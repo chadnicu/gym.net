@@ -1,4 +1,4 @@
-﻿@model Gym.Models.Equipment
+﻿@model Gym.Models.ViewModels.EquipmentViewModel
 
 @{
     ViewData["Title"] = "Equipment Details";
@@ -40,10 +40,10 @@
             @Html.DisplayFor(model => model.PurchasedAt)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Branch)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Branch.Address)
+            @Html.DisplayFor(model => model.Address)
         </dd>
     </dl>
 </div>

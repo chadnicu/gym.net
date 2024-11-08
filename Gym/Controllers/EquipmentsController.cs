@@ -55,12 +55,12 @@ namespace Gym.Controllers
 
             // Pagination
             var count = await equipments.CountAsync();
-            var items = await equipments.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var items = await equipments.Skip((page - 1) * pageSize).Take(pageSize).Select(e=>new EquipmentViewModel(e)).ToListAsync();
 
             // Create view model
-            IndexViewModel viewModel = new IndexViewModel
+            PaginationViewModel viewModel = new PaginationViewModel
             {
-                Equipment = items,
+                EquipmentViewModel = items,
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
                 FilterViewModel = new FilterViewModel(await _context.Branches.ToListAsync(), branch, name)
@@ -72,7 +72,7 @@ namespace Gym.Controllers
         // GET: Equipments
         public async Task<IActionResult> Index()
         {
-            var gymContext = _context.Equipments.Include(e => e.Branch);
+            var gymContext = _context.Equipments.Include(e => e.Branch).Select(e=>new EquipmentViewModel(e));
             return View(await gymContext.ToListAsync());
         }
 
@@ -92,7 +92,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(equipment);
+            return View(new EquipmentViewModel(equipment));
         }
 
         // GET: Equipments/Create
@@ -188,7 +188,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(equipment);
+            return View(new EquipmentViewModel(equipment));
         }
 
         // POST: Equipments/Delete/5

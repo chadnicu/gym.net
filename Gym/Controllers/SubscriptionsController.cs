@@ -105,7 +105,7 @@ namespace Gym.Controllers
         // GET: Subscriptions
         public async Task<IActionResult> Index()
         {
-            var gymContext = _context.Subscriptions.Include(s => s.Branch).Include(s => s.Client);
+            var gymContext = _context.Subscriptions.Include(s => s.Branch).Include(s => s.Client).Select(s=>new SubscriptionViewModel(s));
             return View(await gymContext.ToListAsync());
         }
 
@@ -126,7 +126,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(subscription);
+            return View(new SubscriptionViewModel(subscription));
         }
 
         // GET: Subscriptions/Create
@@ -227,7 +227,7 @@ namespace Gym.Controllers
                 return NotFound();
             }
 
-            return View(subscription);
+            return View(new SubscriptionViewModel(subscription));
         }
 
         // POST: Subscriptions/Delete/5

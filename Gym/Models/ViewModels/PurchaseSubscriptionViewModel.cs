@@ -15,27 +15,27 @@ namespace Gym.Models.ViewModels
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [Display(Name = "Prenume")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [Display(Name = "Nume (de familie)")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Adresa de e-mail")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Data nașterii")]
-        [MinAge(16, ErrorMessage = "Trebuie să ai cel puțin 16 ani.")]
+        [Display(Name = "Date of birth")]
+        [MinAge(16, ErrorMessage = "You must be 16 or older.")]
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "Please select a branch")]
-        [Display(Name = "Branch")]
+        [Display(Name = "Branch's Address")]
         public int BranchId { get; set; }
 
         [Required(ErrorMessage = "Please select subscription duration")]
