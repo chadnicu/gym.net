@@ -6,14 +6,23 @@
 
 <h1 class="text-center my-4">Nine</h1>
 
-<p class="text-center mb-5">Clienți cu prenumele @ViewData["SelectedName"]</p>
+@if(@ViewData["SelectedName"] != null)
+{   
+    <p class="text-center mb-5">Clienți cu prenumele @ViewData["SelectedName"]</p>
+} else
+{
+    <p class="text-center mb-5">Introduceți prenumele clientului</p>
+}
 
 <form asp-action="Nine" method="get" class="text-center mb-4">
     <label for="firstName">Prenume:</label>
-    <input type="text" id="firstName" name="firstName" value="@ViewData["SelectedName"]" required />
+    <input type="text" id="firstName" name="firstName" value="@ViewData["SelectedName"]" required placeholder="Introduceti Prenumele" />
     <button type="submit" class="btn btn-primary">Filter</button>
 </form>
 
+@if (Model!=null && Model.Any())
+{
+    
 <table class="table">
     <thead>
         <tr>
@@ -37,8 +46,8 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
+                         @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
                 </td>
@@ -51,4 +60,9 @@
             </tr>
         }
     </tbody>
-</table>
+    </table>
+
+} else if (@ViewData["SelectedName"]!=null)
+{
+    <p class="text-center">Nu au fost găsiți clienți</p>
+}

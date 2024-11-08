@@ -47,7 +47,7 @@ namespace Gym.Controllers
             return View(await gymContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Five(int age = 18)
+        public async Task<IActionResult> Five(int? age)
         {
             ViewData["SelectedAge"] = age;
 
@@ -82,7 +82,7 @@ namespace Gym.Controllers
             return View(await gymContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Nine(string firstName = "Nicolae")
+        public async Task<IActionResult> Nine(string? firstName)
         {
             ViewData["SelectedName"] = firstName;
 
@@ -91,11 +91,11 @@ namespace Gym.Controllers
             return View(await gymContext.ToListAsync());
         }
 
-        public async Task<IActionResult> Ten(string searchString = "")
+        public async Task<IActionResult> Ten(string? searchString)
         {
             ViewData["SelectedString"] = searchString;
 
-            var gymContext = _context.Equipments
+            var gymContext = _context.Equipments.Include(e=>e.Branch)
                 .Where(e => e.Name.Contains(searchString));
             return View(await gymContext.ToListAsync());
         }

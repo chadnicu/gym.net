@@ -6,19 +6,29 @@
 
 <h1 class="text-center my-4">Ten</h1>
 
-<p class="text-center mb-5">Echipamente în denumirea cărora se conține @ViewData["SelectedString"]</p>
+@if (ViewData["SelectedString"] != null)
+{   
+    <p class="text-center mb-5">Echipamente în denumirea cărora se conține @ViewData["SelectedString"]</p>
+} else
+{
+    <p class="text-center mb-5">Introdu șirul de caractere</p>
+}
 
 <form asp-action="Ten" method="get" class="text-center mb-4">
     <label for="searchString">Șirul de caractere:</label>
-    <input type="text" id="searchString" name="searchString" value="@ViewData["SelectedString"]" />
+    <input type="text" id="searchString" name="searchString" value="@ViewData["SelectedString"]" placeholder="Leg" required/>
     <button type="submit" class="btn btn-primary">Filter</button>
 </form>
 
+@if (Model != null && Model.Any())
+{
+    
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
+                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Brand)
@@ -35,7 +45,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Branch)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -63,4 +72,9 @@
             </tr>
         }
     </tbody>
-</table>
+    </table>
+
+}else if (ViewData["SelectedString"]!=null)
+{
+    <p class="text-center">Nu au fost găsite echipamente</p>
+}

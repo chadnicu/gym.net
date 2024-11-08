@@ -6,14 +6,22 @@
 
 <h1 class="text-center my-4">Five</h1>
 
-<p class="text-center mb-5">Clientii care au mai puțin de @ViewData["SelectedAge"] ani</p>
+@if (ViewData["SelectedAge"] != null)
+{
+    <p class="text-center mb-5">Clientii care au mai puțin de @ViewData["SelectedAge"] ani</p>
+}
+else
+{
+<p class="text-center mb-5">Introduceți vârsta</p>
+}
 
 <form asp-action="Five" method="get" class="text-center mb-4">
     <label for="age">Vârsta:</label>
-    <input type="number" id="age" name="age" min="0" value="@ViewData["SelectedAge"]" required />
+    <input type="number" id="age" name="age" min="0" value="@ViewData["SelectedAge"]" required placeholder="25"/>
     <button type="submit" class="btn btn-primary">Filter</button>
 </form>
 
+@if (Model!=null && Model.Any()) {
 <table class="table">
     <thead>
         <tr>
@@ -51,4 +59,8 @@
             </tr>
         }
     </tbody>
-</table>
+    </table>
+} else if (ViewData["SelectedAge"]!=null)
+{
+    <p class="text-center">Nu au fost găsite persoane</p>
+}
